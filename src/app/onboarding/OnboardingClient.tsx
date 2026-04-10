@@ -120,6 +120,8 @@ export default function OnboardingClient({
         <OnboardingForm
           subscriptionId={sessionData.subscriptionId}
           customerId={sessionData.customerId}
+          customerEmail={sessionData.customerEmail}
+          customerName={sessionData.customerName}
           tier={sessionData.tier}
           billingCycle={sessionData.billingCycle}
           seatQuantity={sessionData.seatQuantity}

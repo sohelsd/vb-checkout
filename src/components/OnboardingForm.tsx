@@ -23,6 +23,8 @@ interface UserInfo {
 interface OnboardingFormProps {
   subscriptionId: string;
   customerId: string;
+  customerEmail: string;
+  customerName: string;
   tier: string;
   billingCycle: string;
   seatQuantity: number;
@@ -45,12 +47,24 @@ function createInitialUser(): UserInfo {
 export default function OnboardingForm({
   subscriptionId,
   customerId,
+  customerEmail,
+  customerName,
   tier,
   billingCycle,
   seatQuantity,
   onSuccess,
 }: OnboardingFormProps) {
-  const [admin, setAdmin] = useState<AdminInfo>(INITIAL_ADMIN);
+  // Split cardholder name into first/last
+  const nameParts = customerName.trim().split(/\s+/);
+  const initialFirstName = nameParts[0] || '';
+  const initialLastName = nameParts.slice(1).join(' ') || '';
+
+  const [admin, setAdmin] = useState<AdminInfo>({
+    ...INITIAL_ADMIN,
+    email: customerEmail,
+    firstName: initialFirstName,
+    lastName: initialLastName,
+  });
   const [users, setUsers] = useState<UserInfo[]>(() =>
     Array.from({ length: seatQuantity }, () => createInitialUser()),
   );
@@ -284,16 +298,9 @@ export default function OnboardingForm({
               id="admin-email"
               type="email"
               value={admin.email}
-              onChange={(e) => updateAdmin('email', e.target.value)}
-              className={`w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-1 ${
-                errors['admin.email']
-                  ? 'border-red-400 focus:border-red-400 focus:ring-red-400'
-                  : 'border-gray-300 focus:border-primary focus:ring-primary'
-              }`}
+              readOnly
+              className="w-full rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 text-sm text-gray-500 focus:outline-none"
             />
-            {errors['admin.email'] && (
-              <p className="mt-1 text-xs text-red-600">{errors['admin.email']}</p>
-            )}
           </div>
 
           {/* Company */}

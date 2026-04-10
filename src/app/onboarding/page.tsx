@@ -11,6 +11,8 @@ function getStripe() {
 export interface ValidatedSession {
   subscriptionId: string;
   customerId: string;
+  customerEmail: string;
+  customerName: string;
   seatQuantity: number;
   tier: Tier;
   billingCycle: BillingCycle;
@@ -67,6 +69,8 @@ export default async function OnboardingPage({
     sessionData = {
       subscriptionId,
       customerId,
+      customerEmail: session.customer_details?.email || session.customer_email || '',
+      customerName: session.customer_details?.name || '',
       seatQuantity,
       tier,
       billingCycle,

@@ -11,6 +11,9 @@ const quicksand = Quicksand({
 export const metadata: Metadata = {
   title: "VoiceboxMD - Checkout",
   description: "Subscribe to VoiceboxMD",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
