@@ -10,7 +10,7 @@ export async function GET() {
   try {
     const stripe = getStripe();
 
-    // Fetch each price directly by ID (avoids pagination issues with list)
+    // Fetch each price with tiers expanded (needed for volume/tiered pricing)
     const fetchPromises: { tier: string; cycle: string; promise: Promise<Stripe.Price> }[] = [];
 
     for (const tier of TIERS) {
@@ -19,26 +19,12 @@ export async function GET() {
         fetchPromises.push({
           tier,
           cycle,
-          promise: stripe.prices.retrieve(priceId),
+          promise: stripe.prices.retrieve(priceId, { expand: ['tiers'] }),
         });
       }
     }
 
     const results = await Promise.all(fetchPromises.map((p) => p.promise));
-
-    // Debug: log the first price to see its structure
-    if (results.length > 0) {
-      console.log('Sample Stripe price object:', JSON.stringify({
-        id: results[0].id,
-        unit_amount: results[0].unit_amount,
-        unit_amount_decimal: results[0].unit_amount_decimal,
-        billing_scheme: results[0].billing_scheme,
-        tiers_mode: results[0].tiers_mode,
-        transform_quantity: results[0].transform_quantity,
-        recurring: results[0].recurring,
-        type: results[0].type,
-      }));
-    }
 
     // Build the response: tier → { monthly, yearly } in dollars
     const response: Record<string, Record<string, number>> = {};
@@ -47,17 +33,25 @@ export async function GET() {
       if (!response[tier]) response[tier] = {};
 
       const stripePrice = results[index];
-      if (stripePrice && stripePrice.unit_amount != null) {
-        const amount = stripePrice.unit_amount / 100;
-        // For yearly prices billed annually, show the per-month equivalent
-        if (cycle === 'yearly' && stripePrice.recurring?.interval === 'year') {
-          response[tier][cycle] = Math.round(amount / 12);
-        } else {
-          response[tier][cycle] = amount;
+      let amount = 0;
+
+      if (stripePrice.unit_amount != null) {
+        // Flat pricing
+        amount = stripePrice.unit_amount / 100;
+      } else if (stripePrice.tiers && stripePrice.tiers.length > 0) {
+        // Tiered/volume pricing — use the first tier's unit_amount
+        const firstTier = stripePrice.tiers[0];
+        if (firstTier.unit_amount != null) {
+          amount = firstTier.unit_amount / 100;
         }
-      } else {
-        response[tier][cycle] = 0;
       }
+
+      // For yearly prices billed annually, show the per-month equivalent
+      if (cycle === 'yearly' && stripePrice.recurring?.interval === 'year' && amount > 0) {
+        amount = Math.round(amount / 12);
+      }
+
+      response[tier][cycle] = amount;
     });
 
     return NextResponse.json(response, {
