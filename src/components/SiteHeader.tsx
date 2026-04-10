@@ -32,7 +32,7 @@ export default function SiteHeader() {
         {/* Logo */}
         <a
           href="https://voiceboxmd.com/"
-          className="shrink-0 text-2xl font-bold tracking-tight text-primary"
+          className="shrink-0 text-2xl font-bold tracking-tight text-[#444]"
         >
           VoiceboxMD
         </a>
@@ -92,7 +92,8 @@ export default function SiteHeader() {
         {/* Desktop CTA */}
         <Link
           href="/"
-          className="hidden shrink-0 rounded-lg bg-primary px-5 py-2.5 text-base font-bold text-white transition-colors hover:bg-primary/90 lg:inline-block"
+          className="hidden shrink-0 rounded-sm border border-transparent bg-[#36bbf7] px-4 py-2 text-[15px] font-normal tracking-tight text-white transition-all hover:opacity-90 lg:inline-block"
+          style={{ minWidth: '80px', letterSpacing: '-0.2px' }}
         >
           Try Now
         </Link>
@@ -164,7 +165,8 @@ export default function SiteHeader() {
             <li className="pt-2">
               <Link
                 href="/"
-                className="block rounded-lg bg-primary px-4 py-3 text-center text-base font-bold text-white"
+                className="block rounded-sm border border-transparent bg-[#36bbf7] px-4 py-2.5 text-center text-[15px] font-normal tracking-tight text-white"
+                style={{ letterSpacing: '-0.2px' }}
               >
                 Try Now
               </Link>
