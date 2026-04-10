@@ -101,7 +101,7 @@ export default function PlanSelector() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.12),transparent_60%)]" />
         <div className="relative mx-auto max-w-3xl px-4">
           <p className="mb-3 inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest backdrop-blur-sm">
-            No credit card required to start
+            No credit card charged during trial
           </p>
           <h1 className="text-4xl font-bold leading-tight md:text-5xl">
             Start Your Free Trial
