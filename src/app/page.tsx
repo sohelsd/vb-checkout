@@ -1,14 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Tier, BillingCycle } from '../../lib/constants';
+import FAQ from '../components/FAQ';
 
 const PLANS: {
   tier: Tier;
   name: string;
   features: string[];
-  monthly: number;
-  yearly: number;
 }[] = [
   {
     tier: 'essential',
@@ -21,8 +20,6 @@ const PLANS: {
       'Free updates',
       'Live chat & email support',
     ],
-    monthly: 199,
-    yearly: 149,
   },
   {
     tier: 'standard',
@@ -35,8 +32,6 @@ const PLANS: {
       'Priority support: 4hr response',
       'Free updates',
     ],
-    monthly: 299,
-    yearly: 249,
   },
   {
     tier: 'pro',
@@ -49,15 +44,30 @@ const PLANS: {
       'Enhanced dashboard',
       'Continuous feature upgrades',
     ],
-    monthly: 399,
-    yearly: 349,
   },
 ];
+
+// Fallback prices in case the API call fails
+const FALLBACK_PRICES: Record<string, Record<string, number>> = {
+  essential: { monthly: 199, yearly: 149 },
+  standard: { monthly: 299, yearly: 249 },
+  pro: { monthly: 399, yearly: 349 },
+};
 
 export default function PlanSelector() {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
   const [loadingTier, setLoadingTier] = useState<Tier | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [prices, setPrices] = useState<Record<string, Record<string, number>>>(FALLBACK_PRICES);
+
+  useEffect(() => {
+    fetch('/api/prices')
+      .then((res) => res.ok ? res.json() : Promise.reject())
+      .then((data) => setPrices(data))
+      .catch(() => {
+        // Keep fallback prices on error
+      });
+  }, []);
 
   const isYearly = billingCycle === 'yearly';
   const trialDays = isYearly ? 14 : 7;
@@ -167,7 +177,7 @@ export default function PlanSelector() {
         {/* Plan cards */}
         <div className="grid gap-6 md:grid-cols-3">
           {PLANS.map((plan) => {
-            const price = isYearly ? plan.yearly : plan.monthly;
+            const price = prices[plan.tier]?.[billingCycle] ?? 0;
             const isLoading = loadingTier === plan.tier;
 
             return (
@@ -251,6 +261,8 @@ export default function PlanSelector() {
           No setup fees · No contract · Cancel anytime
         </p>
       </div>
+
+      <FAQ />
     </main>
   );
 }
