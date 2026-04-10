@@ -1,8 +1,36 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Tier, BillingCycle } from '../../lib/constants';
 import FAQ from '../components/FAQ';
+
+function AnimatedPrice({ value }: { value: number }) {
+  const [display, setDisplay] = useState(value);
+  const [animating, setAnimating] = useState(false);
+  const prevValue = useRef(value);
+
+  useEffect(() => {
+    if (value !== prevValue.current) {
+      setAnimating(true);
+      const timeout = setTimeout(() => {
+        setDisplay(value);
+        setAnimating(false);
+        prevValue.current = value;
+      }, 150);
+      return () => clearTimeout(timeout);
+    }
+  }, [value]);
+
+  return (
+    <span
+      className={`inline-block transition-all duration-300 ${
+        animating ? 'scale-90 opacity-0' : 'scale-100 opacity-100'
+      }`}
+    >
+      ${display}
+    </span>
+  );
+}
 
 const PLANS: {
   tier: Tier;
@@ -185,7 +213,9 @@ export default function PlanSelector() {
                   <div className={`px-7 pb-6 pt-8 ${isPopular ? 'bg-gradient-to-b from-primary/[0.03] to-transparent' : ''}`}>
                     <h2 className="text-lg font-bold text-gray-900">{plan.name}</h2>
                     <div className="mt-3 flex items-baseline gap-1">
-                      <span className="text-5xl font-bold tracking-tight text-gray-900">${price}</span>
+                      <span className="text-5xl font-bold tracking-tight text-gray-900">
+                        <AnimatedPrice value={price} />
+                      </span>
                       <span className="text-base text-gray-500">/mo</span>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">
