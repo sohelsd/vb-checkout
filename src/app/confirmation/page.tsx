@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Script from 'next/script';
 
 interface OnboardingResult {
   adminId: number;
@@ -44,21 +43,6 @@ export default function ConfirmationPage() {
   const adminEmail = data.userEmails[0] ?? '';
 
   return (
-    <>
-      {/* Google Analytics */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=UA-103842262-1"
-        strategy="afterInteractive"
-      />
-      <Script id="ga-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-103842262-1');
-        `}
-      </Script>
-
       <main className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-primary py-10 text-center text-white">
