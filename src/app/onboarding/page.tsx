@@ -4,7 +4,9 @@ import { PRICE_TO_TIER } from '../../../lib/constants';
 import type { Tier, BillingCycle } from '../../../lib/constants';
 import OnboardingClient from './OnboardingClient';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+}
 
 export interface ValidatedSession {
   subscriptionId: string;
@@ -29,6 +31,7 @@ export default async function OnboardingPage({
   let sessionData: ValidatedSession;
 
   try {
+    const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ['subscription'],
     });

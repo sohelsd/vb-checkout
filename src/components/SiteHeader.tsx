@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const NAV_ITEMS = [
   { label: 'Medical', href: 'https://voiceboxmd.com/medical-dictation/' },
@@ -89,12 +90,12 @@ export default function SiteHeader() {
         </nav>
 
         {/* Desktop CTA */}
-        <a
+        <Link
           href="/"
           className="hidden rounded-lg bg-primary px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-primary/90 lg:inline-block"
         >
           Try Now
-        </a>
+        </Link>
 
         {/* Mobile hamburger */}
         <button
@@ -161,12 +162,12 @@ export default function SiteHeader() {
               </li>
             ))}
             <li className="pt-2">
-              <a
+              <Link
                 href="/"
                 className="block rounded-lg bg-primary px-4 py-2.5 text-center text-sm font-bold text-white"
               >
                 Try Now
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

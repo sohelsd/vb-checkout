@@ -2,10 +2,13 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { PRICE_IDS, TIERS, BILLING_CYCLES, type Tier, type BillingCycle } from '../../../../lib/constants';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+}
 
 export async function GET() {
   try {
+    const stripe = getStripe();
     // Collect all price IDs
     const allPriceIds: string[] = [];
     for (const tier of TIERS) {

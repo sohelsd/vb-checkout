@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { PRICE_IDS, TRIAL_PERIODS, TIERS, BILLING_CYCLES, type Tier, type BillingCycle } from '../../../../lib/constants';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,7 +38,7 @@ export async function POST(request: NextRequest) {
     const successUrl = `${origin}/onboarding?session_id={CHECKOUT_SESSION_ID}`;
     const cancelUrl = `${origin}/`;
 
-    // Create Stripe Checkout Session
+    const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       line_items: [
