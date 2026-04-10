@@ -26,6 +26,20 @@ export async function GET() {
 
     const results = await Promise.all(fetchPromises.map((p) => p.promise));
 
+    // Debug: log the first price to see its structure
+    if (results.length > 0) {
+      console.log('Sample Stripe price object:', JSON.stringify({
+        id: results[0].id,
+        unit_amount: results[0].unit_amount,
+        unit_amount_decimal: results[0].unit_amount_decimal,
+        billing_scheme: results[0].billing_scheme,
+        tiers_mode: results[0].tiers_mode,
+        transform_quantity: results[0].transform_quantity,
+        recurring: results[0].recurring,
+        type: results[0].type,
+      }));
+    }
+
     // Build the response: tier → { monthly, yearly } in dollars
     const response: Record<string, Record<string, number>> = {};
 
