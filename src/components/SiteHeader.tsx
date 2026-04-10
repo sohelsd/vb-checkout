@@ -27,7 +27,7 @@ export default function SiteHeader() {
   const [featuresOpen, setFeaturesOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 overflow-x-hidden border-b border-gray-200 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3">
         {/* Logo */}
         <a
@@ -63,7 +63,7 @@ export default function SiteHeader() {
                   </svg>
                 </button>
                 {featuresOpen && (
-                  <ul className="absolute left-0 top-full mt-2 w-60 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                  <ul className="absolute left-0 top-full z-[60] mt-2 w-60 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
                     {item.children.map((child) => (
                       <li key={child.label}>
                         <a
