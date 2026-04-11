@@ -127,14 +127,14 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="mt-2 text-sm text-gray-500">
-            If you cannot find the answer below, please use the{' '}
-            <a
-              href="https://voiceboxmd.com/support/"
-              className="font-medium text-primary underline"
-            >
-              contact form
+            Call us at{' '}
+            <a href="tel:+16467601515" className="font-medium text-primary underline">
+              (646) 760-1515
             </a>{' '}
-            or send us an email.
+            or email{' '}
+            <a href="mailto:support@voiceboxmd.com" className="font-medium text-primary underline">
+              support@voiceboxmd.com
+            </a>
           </p>
         </div>
 
