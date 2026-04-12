@@ -52,7 +52,7 @@ const PLANS: {
   },
   {
     tier: 'standard',
-    name: 'Standard',
+    name: 'Professional',
     badge: 'Most Popular',
     features: [
       'All Essential features, plus:',
@@ -65,7 +65,7 @@ const PLANS: {
   },
   {
     tier: 'pro',
-    name: 'Pro',
+    name: 'Premium',
     features: [
       'All Standard features, plus:',
       'Doctor-patient interaction comprehension',

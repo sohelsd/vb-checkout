@@ -47,24 +47,24 @@ const GENERAL_FAQS: FAQItem[] = [
 
 const PLAN_FAQS: FAQItem[] = [
   {
-    question: 'What is the main difference between Essential, Standard and Pro?',
+    question: 'What is the main difference between Essential, Professional and Premium?',
     answer:
-      'The main difference is workflow and mobile capability. Essential Plan: An Active Dictation tool for a single device — you press a button to speak, and the software types in real-time. Standard Plan: Adds advanced flexibility with multi-device support, audio file uploads, and full access to the VB Virtual Scribe mobile app for on-the-go dictation. Pro Plan: A Hybrid AI Scribe that includes all Standard features plus Ambient Listening — it listens to your patient encounters and automatically generates the SOAP note for you.',
+      'The main difference is workflow and mobile capability. Essential Plan: An Active Dictation tool for a single device — you press a button to speak, and the software types in real-time. Professional Plan: Adds advanced flexibility with multi-device support, audio file uploads, and full access to the VB Virtual Scribe mobile app for on-the-go dictation. Premium Plan: A Hybrid AI Scribe that includes all Professional features plus Ambient Listening — it listens to your patient encounters and automatically generates the SOAP note for you.',
   },
   {
-    question: 'Why would I choose the Standard Plan over Essential?',
+    question: 'Why would I choose the Professional Plan over Essential?',
     answer:
-      'Choose the Standard Plan if you need a professional, multi-platform workflow. It adds three critical features: 1) VB Virtual Scribe Mobile App for recording encounters anywhere and syncing AI-summarized notes to your desktop. 2) Audio Uploads — record a patient visit on any voice recorder or phone app while offline, then upload the file later for instant transcription. 3) Multi-Device Support — stay logged in on up to 3 devices simultaneously.',
+      'Choose the Professional Plan if you need a professional, multi-platform workflow. It adds three critical features: 1) VB Virtual Scribe Mobile App for recording encounters anywhere and syncing AI-summarized notes to your desktop. 2) Audio Uploads — record a patient visit on any voice recorder or phone app while offline, then upload the file later for instant transcription. 3) Multi-Device Support — stay logged in on up to 3 devices simultaneously.',
   },
   {
-    question: 'Does the Pro Plan write SOAP notes automatically?',
+    question: 'Does the Premium Plan write SOAP notes automatically?',
     answer:
-      'Yes. The Pro Plan features Doctor-Patient Interaction Comprehension. You place your device on the desk, have a natural conversation with the patient, and the AI filters out the small talk to generate a structured clinical summary, SOAP note, and even a Superbill suggestion automatically.',
+      'Yes. The Premium Plan features Doctor-Patient Interaction Comprehension. You place your device on the desk, have a natural conversation with the patient, and the AI filters out the small talk to generate a structured clinical summary, SOAP note, and even a Superbill suggestion automatically.',
   },
   {
     question: 'Can I switch plans later?',
     answer:
-      'Absolutely. There are no contracts. You can start on the Essential plan to test the dictation accuracy and upgrade to Pro later to unlock the Ambient AI Scribe features. You can upgrade or downgrade at any time from your dashboard.',
+      'Absolutely. There are no contracts. You can start on the Essential plan to test the dictation accuracy and upgrade to Premium later to unlock the Ambient AI Scribe features. You can upgrade or downgrade at any time from your dashboard.',
   },
   {
     question: 'Is there a setup fee or long-term contract?',
