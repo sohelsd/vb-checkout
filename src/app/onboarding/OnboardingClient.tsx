@@ -110,7 +110,7 @@ export default function OnboardingClient({
           Complete Your Setup
         </h1>
         <p className="mt-2 text-base opacity-90">
-          {{ essential: 'Essential', standard: 'Professional', pro: 'Premium' }[sessionData.tier]} Plan ·{' '}
+          {{ essential: 'Essential', standard: 'Power', pro: 'Premium' }[sessionData.tier]} Plan ·{' '}
           {sessionData.seatQuantity} {sessionData.seatQuantity === 1 ? 'seat' : 'seats'} ·{' '}
           Billed {sessionData.billingCycle}
         </p>

@@ -52,7 +52,7 @@ const PLANS: {
   },
   {
     tier: 'standard',
-    name: 'Professional',
+    name: 'Power',
     badge: 'Most Popular',
     features: [
       'All Essential features, plus:',
