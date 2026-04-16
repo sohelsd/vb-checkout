@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import type { Tier, BillingCycle } from '../../lib/constants';
 import FAQ from '../components/FAQ';
 
-function AnimatedPrice({ value }: { value: number }) {
+function AnimatedPrice({ value }: { value: number | null }) {
   const [display, setDisplay] = useState(value);
   const [animating, setAnimating] = useState(false);
   const prevValue = useRef(value);
@@ -27,7 +27,7 @@ function AnimatedPrice({ value }: { value: number }) {
         animating ? 'scale-90 opacity-0' : 'scale-100 opacity-100'
       }`}
     >
-      ${display}
+      {display !== null ? `$${display}` : '--'}
     </span>
   );
 }
@@ -77,17 +77,13 @@ const PLANS: {
   },
 ];
 
-const FALLBACK_PRICES: Record<string, Record<string, number>> = {
-  essential: { monthly: 199, yearly: 149 },
-  standard: { monthly: 299, yearly: 249 },
-  pro: { monthly: 399, yearly: 349 },
-};
+const FALLBACK_PRICES = null;
 
 export default function PlanSelector() {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
   const [loadingTier, setLoadingTier] = useState<Tier | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [prices, setPrices] = useState<Record<string, Record<string, number>>>(FALLBACK_PRICES);
+  const [prices, setPrices] = useState<Record<string, Record<string, number>> | null>(FALLBACK_PRICES);
 
   useEffect(() => {
     fetch('/api/prices')
@@ -189,7 +185,7 @@ export default function PlanSelector() {
 
           <div className="grid gap-6 md:grid-cols-3">
             {PLANS.map((plan) => {
-              const price = prices[plan.tier]?.[billingCycle] ?? 0;
+              const price = prices ? (prices[plan.tier]?.[billingCycle] ?? null) : null;
               const isLoading = loadingTier === plan.tier;
               const isPopular = plan.tier === 'standard';
 
